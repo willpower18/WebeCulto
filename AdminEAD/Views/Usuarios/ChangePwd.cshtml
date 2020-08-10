@@ -1,0 +1,62 @@
+﻿@model AdminEAD.Models.Usuario
+
+@{
+    ViewData["Title"] = "Usuários";
+    ViewData["Subtitle"] = "Alterar Senha";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Usuários</h6>
+    </div>
+    <div class="card-body">
+        @Html.Raw(ViewBag.Message)
+        <!-- BEGIN FORM-->
+        <form asp-action="ChangePwd">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdUsuario" />
+            <div class="form-group">
+                <label class="control-label col-md-2">Senha Atual <span class="text-danger">*</span></label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input name="Senha" type="password" required maxlength="50" placeholder="Digite a Sua Senha Atual" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Nova Senha <span class="text-danger">*</span></label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input name="NovaSenha" type="password" required maxlength="50" placeholder="Digite a Nova Senha" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-2">Confirmação de Senha <span class="text-danger">*</span></label>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-key"></i></span>
+                        </div>
+                        <input name="ConfirmSenha" type="password" required maxlength="50" placeholder="Confirme a Nova Senha" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="form-actions left">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-check"></i> Salvar
+                </button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

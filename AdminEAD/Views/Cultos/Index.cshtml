@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AdminEAD.Models.Culto>
+
+@{
+    ViewData["Title"] = "Cultos";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cultos</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </th>
+                        <th>
+                            Data e Hora
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Preletor)
+                        </th>
+                        <th>
+                            Igreja
+                        </th>
+                        <th class="text-center"><em class="fas fa fa-cog"></em></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DataHora)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Preletor)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdIgrejaNavigation.Nome)
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.IdCulto" class="btn btn-secondary"><em class="fas fa-pen"></em></a>
+                                <a href="/Cultos/AddPresenca/@item.IdCulto" class="btn btn-secondary" title="Adicionar Presença"><em class="fas fa-plus"></em></a>
+                                <a href="/Cultos/RemovePresenca/@item.IdCulto" class="btn btn-danger" title="Remover Presença"><em class="fas fa-minus"></em></a>
+                                <a asp-action="Delete" asp-route-id="@item.IdCulto" class="btn btn-danger"><em class="fas fa-trash"></em></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

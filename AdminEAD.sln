@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminEAD", "AdminEAD\AdminEAD.csproj", "{39645EC4-E8DA-4A0E-BAD9-54BC1AAD6DEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{39645EC4-E8DA-4A0E-BAD9-54BC1AAD6DEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39645EC4-E8DA-4A0E-BAD9-54BC1AAD6DEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39645EC4-E8DA-4A0E-BAD9-54BC1AAD6DEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39645EC4-E8DA-4A0E-BAD9-54BC1AAD6DEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C390097-5A76-4D2B-85CD-5F584E8EBB29}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://willpaulino.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AdminEAD\\AdminEAD.csproj
+		SccProjectName1 = AdminEAD
+		SccLocalPath1 = AdminEAD
+	EndGlobalSection
+EndGlobal

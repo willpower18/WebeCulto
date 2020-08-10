@@ -1,0 +1,89 @@
+﻿@model AdminEAD.Models.Usuario
+
+@{
+    ViewData["Title"] = "Usuários";
+    ViewData["Subtitle"] = "Alterar Usuário";
+}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Usuários</h6>
+    </div>
+    <div class="card-body">
+        @Html.Raw(ViewBag.AlertMessage)
+        <!-- BEGIN FORM-->
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdUsuario" />
+            <div class="form-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Nome" class="control-label"></label>
+                            <input asp-for="Nome" type="text" class="form-control" placeholder="Digite o Nome do Usuário do Sistema" required="required" maxlength="60" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Login" class="control-label"></label>
+                            <input asp-for="Login" type="text" class="form-control" placeholder="Digite o Login Para Acesso ao Sistema" required="required" maxlength="30" />
+                            <span asp-validation-for="Login" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Senha" class="control-label"></label>
+                            <input asp-for="Senha" type="password" class="form-control" placeholder="Digite a Senha Para Acesso ao Sistema" maxlength="20" />
+                            <span asp-validation-for="Senha" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label">Tipo de Usuário</label>
+                            <select asp-for="IdTipoUsuario" onchange="VerificaDir(this);" asp-items="ViewBag.IdTipoUsuario" class="form-control" required="required"></select>
+                            <span asp-validation-for="IdTipoUsuario" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Ativo" class="form-control" />
+                </div>
+                @if (Model.IdIgreja != null)
+                {
+                    <div class="row" id="divDiretoria">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Diretoria</label>
+                                <select asp-for="IdIgreja" asp-items="ViewBag.IdIgreja" class="form-control">
+                                    <option value="0">Selecione</option>
+                                </select>
+                                <span asp-validation-for="IdIgreja" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row" id="divDiretoria" style="display:none">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Diretoria</label>
+                                <select asp-for="IdIgreja" asp-items="ViewBag.IdIgreja" class="form-control">
+                                    <option value="0">Selecione</option>
+                                </select>
+                                <span asp-validation-for="IdIgreja" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-actions left">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-check"></i> Salvar
+                </button>
+                <a asp-controller="Usuarios" asp-action="Index" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+        <!-- END FORM-->
+    </div>
+</div>

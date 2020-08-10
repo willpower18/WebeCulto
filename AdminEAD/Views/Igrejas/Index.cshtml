@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AdminEAD.Models.Igreja>
+
+@{
+    ViewData["Title"] = "Igrejas";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Igrejas</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nome)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Cidade)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Uf)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Responsavel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Tradicao)
+                        </th>
+                        <th>
+                        <th class="text-center"><em class="fa fa-cog"></em></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cidade)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Uf)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Responsavel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Tradicao)
+                            </td>
+                            <td class="text-center">
+                                <a asp-action="Edit" asp-route-id="@item.IdIgreja" class="btn btn-primary"><em class="fas fa-pen"></em></a>
+                                <a asp-action="Details" asp-route-id="@item.IdIgreja"  class="btn btn-primary"><em class="fas fa-info"></em></a>
+                                <a asp-action="Delete" asp-route-id="@item.IdIgreja"  class="btn btn-danger"><em class="fas fa-trash"></em></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
