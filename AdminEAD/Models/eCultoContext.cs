@@ -122,6 +122,8 @@ namespace AdminEAD.Models
 
                 entity.Property(e => e.QtdCriancas).HasColumnType("int(11)");
 
+                entity.Property(e => e.Confirmado).HasColumnType("int(11)");
+
                 entity.Property(e => e.Telefone)
                     .IsRequired()
                     .HasColumnType("varchar(50)");

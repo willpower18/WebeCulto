@@ -8,7 +8,8 @@ namespace AdminEAD.ViewModels
 {
     public class CultoPresenca
     {
+        public Igreja igreja { get; set; }
         public Culto culto { get; set; }
-        public List<Participacao> participacoes { get; set; }
+        public string tabela { get; set; }
     }
 }
