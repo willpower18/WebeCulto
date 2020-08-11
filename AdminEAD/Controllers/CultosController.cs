@@ -301,7 +301,7 @@ namespace AdminEAD.Controllers
                     }
                 }
 
-                List<Participacao> participacoes = await _context.Participacao.Where(p => p.IdCulto == culto.IdCulto).ToListAsync();
+                List<Participacao> participacoes = await _context.Participacao.Where(p => p.IdCulto == culto.IdCulto).OrderBy(p => p.Nome).ToListAsync();
 
                 ViewBag.NomeEvento = culto.Nome;
                 ViewBag.DataEvento = culto.DataHora.ToString("dd/MM/yyyy HH:mm");
