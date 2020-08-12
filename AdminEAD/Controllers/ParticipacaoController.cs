@@ -115,12 +115,12 @@ namespace AdminEAD.Controllers
                 DateTime hoje = Util.BrasilDate();
                 if (string.IsNullOrEmpty(idIgreja))
                 {
-                    cultos = await _context.Culto.Where(c => c.DataHora >= hoje).OrderBy(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
+                    cultos = await _context.Culto.OrderByDescending(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
                 }
                 else
                 {
                     int igreja = Convert.ToInt32(idIgreja);
-                    cultos = await _context.Culto.Where(c => c.DataHora >= hoje & c.IdIgreja == igreja).OrderBy(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
+                    cultos = await _context.Culto.Where(c => c.IdIgreja == igreja).OrderByDescending(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
                 }
                 return View(cultos);
             }
