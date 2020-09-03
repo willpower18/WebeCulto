@@ -3,3 +3,12 @@
 ################################################################################
 
 /.vs/AdminEAD
+/AdminEAD/bin/Debug/netcoreapp2.2
+AdminEAD/obj/*
+AdminEAD\obj
+AdminEAD\bin
+AdminEAD/bin
+AdminEAD/obj/Debug/netcoreapp2.2/AdminEAD.csprojAssemblyReference.cache
+.vs/AdminEAD/DesignTimeBuild/.dtbcache.v2
+.vs/AdminEAD/v16/.suo
+.vscode
