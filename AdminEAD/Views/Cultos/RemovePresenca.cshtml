@@ -9,7 +9,7 @@
 }
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Lista de Presença</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Remover Participante no Culto</h6>
     </div>
     <div class="card-body">
         @Html.Raw(ViewBag.AlertMessage)
@@ -46,14 +46,6 @@
                                     <td>@item.QtdAdultos</td>
                                     <td>@item.QtdCriancas</td>
                                     <td class="text-center">
-                                        @if (item.Confirmado == 1)
-                                        {
-                                            <button type="button" class="btn btn-success" id="@item.IdParticipacao" onclick="Confirma(this);" title="Clique para Remover a Confirmação"><em class="fas fa-user"></em></button>
-                                        }
-                                        else
-                                        {
-                                            <button type="button" class="btn btn-secondary" id="@item.IdParticipacao" onclick="Confirma(this);" title="Clique para Confirmar a presença"><em class="fas fa-user"></em></button>
-                                        }
                                         <button type="button" class="btn btn-danger" id="@item.IdParticipacao" onclick="Remove(this);" title="Remover Presença"><em class="fas fa-ban"></em></button>
                                     </td>
                                 </tr>
@@ -74,9 +66,9 @@
     <!-- Page level custom scripts -->
     <script src="~/js/demo/datatables-demo.js"></script>
     <script>
-        function Confirma(obj) {
+        function Remove(obj) {
             var id = obj.id;
-            var url = "/Participacao/Confirma";
+            var url = "/Cultos/RemoverPresenca";
             $.ajax({
                 url: url
                 , async: false
@@ -85,44 +77,14 @@
                 , data: { Id: id }
                 , success: function (data) {
                     if (data.res == 1) {
-                        if (data.conf == 1) {
-                            $(obj).removeClass('btn-secondary');
-                            $(obj).addClass('btn-success');
-                        }
-                        else {
-                            $(obj).removeClass('btn-success');
-                            $(obj).addClass('btn-secondary');
-                        }
+                        $(obj).parent().parent().remove();
+                        alert(data.msg);
                     }
                     else {
                         alert(data.msg);
                     }
                 }
             });
-        }
-    </script>
-    <script>
-        function Remove(obj) {
-            if (confirm("Tem Certeza que Deseja Remover essa pessoa? Essa ação não poderá ser desfeita!")) {
-                var id = obj.id;
-                var url = "/Cultos/RemoverPresenca";
-                $.ajax({
-                    url: url
-                    , async: false
-                    , type: "POST"
-                    , datatype: "json"
-                    , data: { Id: id }
-                    , success: function (data) {
-                        if (data.res == 1) {
-                            $(obj).parent().parent().remove();
-                            alert(data.msg);
-                        }
-                        else {
-                            alert(data.msg);
-                        }
-                    }
-                });
-            }
         }
     </script>
 }

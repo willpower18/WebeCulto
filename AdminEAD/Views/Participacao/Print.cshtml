@@ -1,0 +1,69 @@
+﻿@model AdminEAD.ViewModels.CultoPresenca
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" charset="utf-8" content="width=device-width" />
+    <title>Relatório de Participação</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .text-center .img-responsive {
+            margin: 0 auto; /*Propriedade para centralizar as imagens do container com text-center*/
+        }
+    </style>
+    <link rel="shortcut icon" href="~/NewLayout/assets/media/logos/favicon.ico" />
+</head>
+<body>
+    <div class="page-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 text-center" style="left:50px;margin-top:10px;margin-bottom:50px;">
+                    <h3>@Html.DisplayFor(model => model.igreja.Nome)</h3>
+                    <h5>@Html.DisplayFor(model => model.igreja.Endereco), nº @Html.DisplayFor(model => model.igreja.Numero),  @Html.DisplayFor(model => model.igreja.Bairro)</h5>
+                    <h5> @Html.DisplayFor(model => model.igreja.Cidade) - @Html.DisplayFor(model => model.igreja.Uf)</h5>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="text-justify" style="font-size:18px">
+                        Na qualidade de responsável por esta entidade religiosa, declaro para os devidos fins que, em celebração realizada da data de @Model.culto.DataHora.ToString("dd/MM/yyyy") às @Model.culto.DataHora.ToString("HH:mm") horas encontravam-se presentes as pessoas abaixo relacionadas.
+                    </p>
+                    <br />
+                    <table class="table table-bordered" style="line-height:12px">
+                        <tbody>
+                            <tr>
+                                <td><b>Nome</b></td>
+                                <td><b>Telefone</b></td>
+                                <td><b>Nº de Acompanhantes</b></td>
+                            </tr>
+                            @Html.Raw(Model.tabela)
+                        </tbody>
+                    </table>
+                </div>
+            </div><br />
+            <div class="row">
+                <div class="col-md-12" style="text-align: right">
+                    <p style="font-size:18px">@Model.igreja.Cidade - @Model.igreja.Uf, @DateTime.Now.ToString("dd 'de' MMMM 'de' yyyy").</p>
+                </div>
+            </div>
+            <br />
+           <div class="row">
+               <div class="col-md-12">
+                   <p class="text-center" style="font-size:18px">
+                       ____________________________<br />
+                       @Model.igreja.Responsavel<br />
+                       Responsável Pela Entidade
+                   </p>
+               </div>
+           </div>
+        </div>
+    </div>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

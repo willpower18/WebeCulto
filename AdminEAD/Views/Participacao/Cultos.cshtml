@@ -9,7 +9,7 @@
 }
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Cultos</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Cultos - Escolha um culto para gerar a lista de presença</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -48,11 +48,7 @@
                                 @Html.DisplayFor(modelItem => item.IdIgrejaNavigation.Nome)
                             </td>
                             <td class="text-center">
-                                <a asp-action="Edit" asp-route-id="@item.IdCulto" class="btn btn-secondary" title="Editar Informações"><em class="fas fa-pen"></em></a>
-                                <a href="/Participacao/Index/@item.IdCulto" class="btn btn-secondary" title="Lista de Presença"><em class="fas fa-clipboard-list"></em></a>
-                                <a href="/Cultos/AddPresenca/@item.IdCulto" class="btn btn-success" title="Adicionar Presença"><em class="fas fa-plus"></em></a>
-                                <a href="/Cultos/RemovePresenca/@item.IdCulto" class="btn btn-danger" title="Remover Presença"><em class="fas fa-minus"></em></a>
-                                <a asp-action="Delete" asp-route-id="@item.IdCulto" class="btn btn-danger" title="Remover Evento"><em class="fas fa-trash"></em></a>
+                                <a href="/Participacao/Print/@item.IdCulto" target="_blank" class="btn btn-secondary" title="Lista de Presença"><em class="fas fa-print"></em></a>
                             </td>
                         </tr>
                     }
@@ -69,3 +65,4 @@
     <!-- Page level custom scripts -->
     <script src="~/js/demo/datatables-demo.js"></script>
 }
+

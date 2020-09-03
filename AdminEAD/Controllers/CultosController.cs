@@ -258,6 +258,10 @@ namespace AdminEAD.Controllers
 
                     _context.Add(participacao);
                     await _context.SaveChangesAsync();
+                    int qtdPessoas = participacao.QtdAdultos + participacao.QtdCriancas;
+                    culto.Lotacao += qtdPessoas;
+                    _context.Update(culto);
+                    await _context.SaveChangesAsync();
                     ViewBag.AlertMessage = Util.RenderAlert("Participação Incluída com sucesso!", "Sucesso!", "SUCCESS");
                     ViewData["IdCulto"] = new SelectList(_context.Culto.Where(c => c.IdCulto == participacao.IdCulto), "IdCulto", "Nome");
                     return View(participacao);
@@ -297,7 +301,7 @@ namespace AdminEAD.Controllers
                     }
                 }
 
-                List<Participacao> participacoes = await _context.Participacao.Where(p => p.IdCulto == culto.IdCulto).ToListAsync();
+                List<Participacao> participacoes = await _context.Participacao.Where(p => p.IdCulto == culto.IdCulto).OrderBy(p => p.Nome).ToListAsync();
 
                 ViewBag.NomeEvento = culto.Nome;
                 ViewBag.DataEvento = culto.DataHora.ToString("dd/MM/yyyy HH:mm");
@@ -306,6 +310,46 @@ namespace AdminEAD.Controllers
             catch
             {
                 return NotFound();
+            }
+        }
+
+        public async Task<JsonResult> RemoverPresenca(int Id)
+        {
+            if(Id == 0)
+            {
+                var retorno = new
+                {
+                    res = 0,
+                    msg = "Id Inválido"
+                };
+
+                return Json(retorno);
+            }
+            else
+            {
+                Participacao part = await _context.Participacao.FindAsync(Id);
+                if(part == null)
+                {
+                    var retorno = new
+                    {
+                        res = 0,
+                        msg = "Objeto não encontrado"
+                    };
+
+                    return Json(retorno);
+                }
+                else
+                {
+                    _context.Remove(part);
+                    await _context.SaveChangesAsync();
+                    var retorno = new
+                    {
+                        res = 1,
+                        msg = "Participação Removida Com Sucesso!"
+                    };
+
+                    return Json(retorno);
+                }
             }
         }
     }
