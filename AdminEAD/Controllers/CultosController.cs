@@ -29,14 +29,15 @@ namespace AdminEAD.Controllers
                 var idIgreja = User.Claims.Where(c => c.Type == "IdIgreja").Select(c => c.Value).SingleOrDefault();
                 List<Culto> cultos = new List<Culto>();
                 DateTime hoje = Util.BrasilDate();
+                DateTime menosDoisDias = hoje.AddDays(-2);
                 if (string.IsNullOrEmpty(idIgreja))
                 {
-                    cultos = await _context.Culto.Where(c => c.DataHora >= hoje).OrderBy(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
+                    cultos = await _context.Culto.Where(c => c.DataHora >= menosDoisDias).OrderByDescending(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
                 }
                 else
                 {
                     int igreja = Convert.ToInt32(idIgreja);
-                    cultos = await _context.Culto.Where(c => c.DataHora >= hoje & c.IdIgreja == igreja).OrderBy(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
+                    cultos = await _context.Culto.Where(c => c.DataHora >= menosDoisDias & c.IdIgreja == igreja).OrderByDescending(c => c.DataHora).Include(c => c.IdIgrejaNavigation).ToListAsync(); ;
                 }
                 return View(cultos);
             }
@@ -46,7 +47,7 @@ namespace AdminEAD.Controllers
             }
         }
 
-        
+
         public IActionResult Create()
         {
             try
@@ -67,7 +68,7 @@ namespace AdminEAD.Controllers
             {
                 return NotFound();
             }
-           
+
         }
 
         [HttpPost]
@@ -90,9 +91,9 @@ namespace AdminEAD.Controllers
                     ViewData["IdIgreja"] = new SelectList(_context.Igreja.Where(i => i.IdIgreja == culto.IdIgreja), "IdIgreja", "Nome", culto.IdIgreja);
                     return View(culto);
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.AlertMessage = Util.RenderAlert("Ocorreu um erro inesperado, encaminhe a mensagem de erro ao suporte: " + ex.Message, "Erro!", "ERROR");
                 ViewData["IdIgreja"] = new SelectList(_context.Igreja.Where(i => i.IdIgreja == culto.IdIgreja), "IdIgreja", "Nome", culto.IdIgreja);
@@ -150,7 +151,7 @@ namespace AdminEAD.Controllers
                     return View(culto);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.AlertMessage = Util.RenderAlert("Ocorreu um erro inesperado, encaminhe a mensagem de erro ao suporte: " + ex.Message, "Erro!", "ERROR");
                 ViewData["IdIgreja"] = new SelectList(_context.Igreja.Where(i => i.IdIgreja == culto.IdIgreja), "IdIgreja", "Nome", culto.IdIgreja);
@@ -190,15 +191,15 @@ namespace AdminEAD.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var culto = await _context.Culto.FindAsync(id);
-            if(culto == null)
+            if (culto == null)
             {
                 return NotFound();
             }
 
             List<Participacao> participacoes = await _context.Participacao.Where(p => p.IdCulto == culto.IdCulto).ToListAsync();
-            if(participacoes.Count > 0)
+            if (participacoes.Count > 0)
             {
-                foreach(Participacao p in participacoes)
+                foreach (Participacao p in participacoes)
                 {
                     _context.Participacao.Remove(p);
                 }
@@ -249,7 +250,7 @@ namespace AdminEAD.Controllers
                     Culto culto = await _context.Culto.FindAsync(participacao.IdCulto);
                     int qtd = culto.Lotacao + participacao.QtdAdultos;
                     qtd += participacao.QtdCriancas;
-                    if(qtd > capacidade)
+                    if (qtd > capacidade)
                     {
                         ViewBag.AlertMessage = Util.RenderAlert("Não foi possível salvar pois o limite da capacidade da igreja foi atingido!", "Atenção!", "WARNING");
                         ViewData["IdCulto"] = new SelectList(_context.Culto.Where(c => c.IdCulto == participacao.IdCulto), "IdCulto", "Nome");
@@ -272,9 +273,9 @@ namespace AdminEAD.Controllers
                     ViewData["IdCulto"] = new SelectList(_context.Culto.Where(c => c.IdCulto == participacao.IdCulto), "IdCulto", "Nome");
                     return View(participacao);
                 }
-                
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.AlertMessage = Util.RenderAlert("Ocorreu um erro inesperado, encaminhe a mensagem de erro ao suporte: " + ex.Message, "Erro!", "ERROR");
                 return View(participacao);
@@ -290,14 +291,14 @@ namespace AdminEAD.Controllers
                 {
                     return NotFound();
                 }
-                
+
                 var idIgreja = User.Claims.Where(c => c.Type == "IdIgreja").Select(c => c.Value).SingleOrDefault();
                 if (!string.IsNullOrEmpty(idIgreja))
                 {
                     int igreja = Convert.ToInt32(idIgreja);
-                    if(igreja != culto.IdIgreja)
+                    if (igreja != culto.IdIgreja)
                     {
-                        return RedirectToAction("AccessDenied","Account");
+                        return RedirectToAction("AccessDenied", "Account");
                     }
                 }
 
@@ -315,7 +316,7 @@ namespace AdminEAD.Controllers
 
         public async Task<JsonResult> RemoverPresenca(int Id)
         {
-            if(Id == 0)
+            if (Id == 0)
             {
                 var retorno = new
                 {
@@ -328,7 +329,7 @@ namespace AdminEAD.Controllers
             else
             {
                 Participacao part = await _context.Participacao.FindAsync(Id);
-                if(part == null)
+                if (part == null)
                 {
                     var retorno = new
                     {
