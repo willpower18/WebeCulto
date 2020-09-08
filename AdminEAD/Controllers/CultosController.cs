@@ -341,6 +341,11 @@ namespace AdminEAD.Controllers
                 }
                 else
                 {
+                    Culto culto = await _context.Culto.FindAsync(part.IdCulto);
+                    int qtdParticipantes = part.QtdAdultos + part.QtdCriancas;
+                    int quantidade = culto.Lotacao - qtdParticipantes;
+                    culto.Lotacao = quantidade;
+                    _context.Culto.Update(culto);
                     _context.Remove(part);
                     await _context.SaveChangesAsync();
                     var retorno = new
